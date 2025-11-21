@@ -1,41 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, StyleSheet, Pressable } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import { FAB } from "@/components/FAB";
 import { ScreenScrollView } from "@/components/ScreenScrollView";
 import { useTheme } from "@/hooks/useTheme";
 import { Spacing, BorderRadius } from "@/constants/theme";
-import { CreditCard } from "@/types";
+import { useData } from "@/contexts/DataContext";
 
 export default function CardsScreen() {
   const { theme } = useTheme();
-  const [cards] = useState<CreditCard[]>([
-    {
-      id: "1",
-      name: "Nubank",
-      bank: "Nubank",
-      brand: "Mastercard",
-      limit: 5000,
-      closingDay: 15,
-      dueDay: 25,
-      currentBalance: 1850.50,
-      createdAt: new Date().toISOString(),
-    },
-    {
-      id: "2",
-      name: "Itaú Personnalité",
-      bank: "Itaú",
-      brand: "Visa",
-      limit: 8000,
-      closingDay: 10,
-      dueDay: 20,
-      currentBalance: 520.00,
-      createdAt: new Date().toISOString(),
-    },
-  ]);
+  const navigation = useNavigation<any>();
+  const { cards } = useData();
 
   const calculateUsagePercent = (used: number, limit: number) => {
     return (used / limit) * 100;
@@ -130,7 +109,7 @@ export default function CardsScreen() {
         })}
       </ScreenScrollView>
 
-      <FAB onPress={() => {}} />
+      <FAB onPress={() => navigation.navigate("AddCard")} />
     </ThemedView>
   );
 }

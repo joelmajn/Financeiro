@@ -7,25 +7,67 @@ import { BalanceCard } from "@/components/BalanceCard";
 import { ScreenScrollView } from "@/components/ScreenScrollView";
 import { useTheme } from "@/hooks/useTheme";
 import { Spacing, BorderRadius } from "@/constants/theme";
+import { useData } from "@/contexts/DataContext";
 
 export default function ReportsScreen() {
   const { theme } = useTheme();
-  const [monthlyIncome] = useState(6500.00);
-  const [monthlyExpenses] = useState(3320.50);
-  const [balance] = useState(3179.50);
+  const { incomes, variableExpenses, fixedExpenses, goals } = useData();
 
-  const categories = [
-    { name: "Alimentação", amount: 890.50, icon: "shopping-bag", color: theme.neonOrange },
-    { name: "Transporte", amount: 520.00, icon: "truck", color: theme.neonBlue },
-    { name: "Moradia", amount: 1200.00, icon: "home", color: theme.neonPurple },
-    { name: "Lazer", amount: 450.00, icon: "coffee", color: theme.neonGreen },
-    { name: "Outros", amount: 260.00, icon: "more-horizontal", color: theme.neonRed },
+  const currentMonth = new Date().getMonth();
+  const currentYear = new Date().getFullYear();
+
+  const monthlyIncome = incomes
+    .filter((inc) => {
+      const date = new Date(inc.date);
+      return date.getMonth() === currentMonth && date.getFullYear() === currentYear;
+    })
+    .reduce((sum, inc) => sum + inc.amount, 0);
+
+  const monthlyVariableExpenses = variableExpenses
+    .filter((exp) => {
+      const date = new Date(exp.date);
+      return date.getMonth() === currentMonth && date.getFullYear() === currentYear;
+    })
+    .reduce((sum, exp) => sum + exp.amount, 0);
+
+  const monthlyFixedExpenses = fixedExpenses.reduce((sum, exp) => sum + exp.amount, 0);
+  const monthlyExpenses = monthlyVariableExpenses + monthlyFixedExpenses;
+  const balance = monthlyIncome - monthlyExpenses;
+
+  const categoryData: { [key: string]: number } = {};
+  variableExpenses
+    .filter((exp) => {
+      const date = new Date(exp.date);
+      return date.getMonth() === currentMonth && date.getFullYear() === currentYear;
+    })
+    .forEach((exp) => {
+      categoryData[exp.category] = (categoryData[exp.category] || 0) + exp.amount;
+    });
+
+  const categoryIcons: { [key: string]: string } = {
+    casa: "home",
+    mercado: "shopping-bag",
+    transporte: "truck",
+    lazer: "coffee",
+    saude: "heart",
+    educacao: "book",
+    outros: "more-horizontal",
+  };
+
+  const categoryColors = [
+    theme.neonOrange,
+    theme.neonBlue,
+    theme.neonPurple,
+    theme.neonGreen,
+    theme.neonRed,
   ];
 
-  const goals = [
-    { name: "Viagem", current: 1500, target: 5000, icon: "map-pin" },
-    { name: "Notebook Novo", current: 800, target: 3500, icon: "laptop" },
-  ];
+  const categories = Object.entries(categoryData).map(([name, amount], index) => ({
+    name: name.charAt(0).toUpperCase() + name.slice(1),
+    amount,
+    icon: categoryIcons[name] || "more-horizontal",
+    color: categoryColors[index % categoryColors.length],
+  }));
 
   return (
     <ThemedView style={styles.container}>

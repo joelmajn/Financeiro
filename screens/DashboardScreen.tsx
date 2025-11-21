@@ -9,14 +9,37 @@ import { FAB } from "@/components/FAB";
 import { ScreenScrollView } from "@/components/ScreenScrollView";
 import { useTheme } from "@/hooks/useTheme";
 import { Spacing, BorderRadius } from "@/constants/theme";
+import { useData } from "@/contexts/DataContext";
 
 export default function DashboardScreen() {
   const { theme } = useTheme();
   const navigation = useNavigation<any>();
-  const [currentBalance] = useState(5420.50);
-  const [projectedBalance] = useState(3180.00);
-  const [monthlyIncome] = useState(6500.00);
-  const [monthlyExpenses] = useState(3320.50);
+  const { accounts, incomes, variableExpenses, fixedExpenses, cards } = useData();
+
+  const currentBalance = accounts.reduce((sum, acc) => sum + acc.balance, 0);
+  
+  const currentMonth = new Date().getMonth();
+  const currentYear = new Date().getFullYear();
+  
+  const monthlyIncome = incomes
+    .filter((inc) => {
+      const date = new Date(inc.date);
+      return date.getMonth() === currentMonth && date.getFullYear() === currentYear;
+    })
+    .reduce((sum, inc) => sum + inc.amount, 0);
+
+  const monthlyVariableExpenses = variableExpenses
+    .filter((exp) => {
+      const date = new Date(exp.date);
+      return date.getMonth() === currentMonth && date.getFullYear() === currentYear;
+    })
+    .reduce((sum, exp) => sum + exp.amount, 0);
+
+  const monthlyFixedExpenses = fixedExpenses.reduce((sum, exp) => sum + exp.amount, 0);
+  const monthlyExpenses = monthlyVariableExpenses + monthlyFixedExpenses;
+  
+  const totalCardBalances = cards.reduce((sum, card) => sum + card.currentBalance, 0);
+  const projectedBalance = currentBalance + monthlyIncome - monthlyExpenses - totalCardBalances;
 
   const handleAddTransaction = () => {
     navigation.navigate("AddTransaction");

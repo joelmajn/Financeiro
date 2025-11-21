@@ -5,6 +5,10 @@ import OnboardingScreen from "@/screens/OnboardingScreen";
 import PinUnlockScreen from "@/screens/PinUnlockScreen";
 import MainTabNavigator from "./MainTabNavigator";
 import AddTransactionScreen from "@/screens/AddTransactionScreen";
+import AddAccountScreen from "@/screens/AddAccountScreen";
+import AddCardScreen from "@/screens/AddCardScreen";
+import AddGoalScreen from "@/screens/AddGoalScreen";
+import AddFixedExpenseScreen from "@/screens/AddFixedExpenseScreen";
 import { useAuth } from "@/contexts/AuthContext";
 
 export type RootStackParamList = {
@@ -13,6 +17,10 @@ export type RootStackParamList = {
   PinUnlock: undefined;
   Main: undefined;
   AddTransaction: undefined;
+  AddAccount: undefined;
+  AddCard: undefined;
+  AddGoal: undefined;
+  AddFixedExpense: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -51,7 +59,27 @@ export default function RootNavigator() {
         <Stack.Screen
           name="AddTransaction"
           component={AddTransactionScreen}
-          options={{ title: "Adicionar" }}
+          options={{ title: "Nova Transação" }}
+        />
+        <Stack.Screen
+          name="AddAccount"
+          component={AddAccountScreen}
+          options={{ title: "Nova Conta" }}
+        />
+        <Stack.Screen
+          name="AddCard"
+          component={AddCardScreen}
+          options={{ title: "Novo Cartão" }}
+        />
+        <Stack.Screen
+          name="AddGoal"
+          component={AddGoalScreen}
+          options={{ title: "Nova Meta" }}
+        />
+        <Stack.Screen
+          name="AddFixedExpense"
+          component={AddFixedExpenseScreen}
+          options={{ title: "Nova Despesa Fixa" }}
         />
       </Stack.Group>
     </Stack.Navigator>

@@ -1,42 +1,19 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Pressable, FlatList } from "react-native";
+import React from "react";
+import { View, StyleSheet, Pressable } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import { FAB } from "@/components/FAB";
 import { ScreenScrollView } from "@/components/ScreenScrollView";
 import { useTheme } from "@/hooks/useTheme";
 import { Spacing, BorderRadius } from "@/constants/theme";
-import { Account } from "@/types";
+import { useData } from "@/contexts/DataContext";
 
 export default function AccountsScreen() {
   const { theme } = useTheme();
-  const [accounts] = useState<Account[]>([
-    {
-      id: "1",
-      name: "Nubank",
-      type: "bank",
-      balance: 3420.50,
-      icon: "briefcase",
-      createdAt: new Date().toISOString(),
-    },
-    {
-      id: "2",
-      name: "Carteira",
-      type: "wallet",
-      balance: 250.00,
-      icon: "dollar-sign",
-      createdAt: new Date().toISOString(),
-    },
-    {
-      id: "3",
-      name: "Poupança",
-      type: "savings",
-      balance: 1750.00,
-      icon: "trending-up",
-      createdAt: new Date().toISOString(),
-    },
-  ]);
+  const navigation = useNavigation<any>();
+  const { accounts } = useData();
 
   const getIconName = (type: string): any => {
     switch (type) {
@@ -136,7 +113,7 @@ export default function AccountsScreen() {
         ))}
       </ScreenScrollView>
 
-      <FAB onPress={() => {}} />
+      <FAB onPress={() => navigation.navigate("AddAccount")} />
     </ThemedView>
   );
 }
