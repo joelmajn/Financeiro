@@ -3,23 +3,32 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { Platform, StyleSheet } from "react-native";
-import HomeStackNavigator from "@/navigation/HomeStackNavigator";
-import ProfileStackNavigator from "@/navigation/ProfileStackNavigator";
+import DashboardStackNavigator from "@/navigation/DashboardStackNavigator";
+import AccountsStackNavigator from "@/navigation/AccountsStackNavigator";
+import CardsStackNavigator from "@/navigation/CardsStackNavigator";
+import ReportsStackNavigator from "@/navigation/ReportsStackNavigator";
 import { useTheme } from "@/hooks/useTheme";
 
 export type MainTabParamList = {
-  HomeTab: undefined;
-  ProfileTab: undefined;
+  DashboardTab: undefined;
+  AccountsTab: undefined;
+  AddTab: undefined;
+  CardsTab: undefined;
+  ReportsTab: undefined;
 };
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
+
+function EmptyComponent() {
+  return null;
+}
 
 export default function MainTabNavigator() {
   const { theme, isDark } = useTheme();
 
   return (
     <Tab.Navigator
-      initialRouteName="HomeTab"
+      initialRouteName="DashboardTab"
       screenOptions={{
         tabBarActiveTintColor: theme.tabIconSelected,
         tabBarInactiveTintColor: theme.tabIconDefault,
@@ -44,22 +53,56 @@ export default function MainTabNavigator() {
       }}
     >
       <Tab.Screen
-        name="HomeTab"
-        component={HomeStackNavigator}
+        name="DashboardTab"
+        component={DashboardStackNavigator}
         options={{
-          title: "Home",
+          title: "Início",
           tabBarIcon: ({ color, size }) => (
             <Feather name="home" size={size} color={color} />
           ),
         }}
       />
       <Tab.Screen
-        name="ProfileTab"
-        component={ProfileStackNavigator}
+        name="AccountsTab"
+        component={AccountsStackNavigator}
         options={{
-          title: "Profile",
+          title: "Contas",
           tabBarIcon: ({ color, size }) => (
-            <Feather name="user" size={size} color={color} />
+            <Feather name="briefcase" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="AddTab"
+        component={EmptyComponent}
+        options={{
+          title: "",
+          tabBarIcon: () => null,
+          tabBarButton: () => null,
+        }}
+        listeners={{
+          tabPress: (e) => {
+            e.preventDefault();
+          },
+        }}
+      />
+      <Tab.Screen
+        name="CardsTab"
+        component={CardsStackNavigator}
+        options={{
+          title: "Cartões",
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="credit-card" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="ReportsTab"
+        component={ReportsStackNavigator}
+        options={{
+          title: "Relatórios",
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="pie-chart" size={size} color={color} />
           ),
         }}
       />
