@@ -51,10 +51,11 @@ export interface Income {
 
 export interface FixedExpense {
   id: string;
-  name: string;
+  name?: string;
+  description?: string;
   amount: number;
   dueDay: number;
-  type: "boleto" | "debit" | "credit";
+  type?: "boleto" | "debit" | "credit";
   accountId?: string;
   cardId?: string;
   category: string;
@@ -80,8 +81,10 @@ export interface FinancialGoal {
   name: string;
   targetAmount: number;
   currentAmount: number;
-  targetDate: string;
-  accountId: string;
+  targetDate?: string;
+  deadline?: string;
+  accountId?: string;
+  icon?: string;
   createdAt: string;
 }
 
