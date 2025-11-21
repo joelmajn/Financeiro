@@ -1,0 +1,111 @@
+Você é um desenvolvedor sênior especializado em aplicativos financeiros e UX moderna.
+
+Crie um aplicativo de controle financeiro pessoal chamado "NeoWallet" 100% em português do Brasil.
+
+Objetivo do app:
+- Permitir que o usuário cadastre todas as contas (banco, carteira, poupança).
+- Registre tudo que recebe (salário, pix, rendas extras).
+- Cadastre contas fixas mensais (aluguel, luz, internet, assinaturas, etc).
+- Registre todas as despesas do dia a dia (compras, mercado, transporte, lazer, etc).
+- Controle de cartões de crédito com faturas, limite e parcelas.
+- Faça projeções automáticas de quanto deverá sobrar no final do mês, atualizando em tempo real conforme o usuário registra receitas e despesas.
+- Ajude o usuário a bater metas financeiras (economizar, sair do vermelho, pagar dívidas).
+
+Módulos principais:
+1. Autenticação e segurança:
+   - Tela de boas-vindas com logo do app.
+   - Cadastro de usuário (nome, email, senha).
+   - Login por email e senha.
+   - Recuperação de senha.
+   - Bloqueio interno por PIN (4 a 6 dígitos) e suporte opcional a biometria (quando o dispositivo permitir).
+   - Após um tempo de inatividade, voltar para a tela de desbloqueio (PIN/biometria).
+
+2. Onboarding:
+   - Primeiro acesso com perguntas simples:
+     - renda mensal aproximada;
+     - se possui dívidas;
+     - principais objetivos (organizar cartões, sair do vermelho, guardar dinheiro).
+   - Tela explicando onde cadastrar contas, como registrar receitas/despesas e onde ver o resumo do mês.
+
+3. Contas e carteiras:
+   - Cadastro de contas bancárias, carteira física, poupança e outras.
+   - Campos: nome da conta, tipo (banco, carteira, investimento), saldo inicial, ícone.
+   - Exibir lista de contas com saldo atual.
+
+4. Cartões de crédito:
+   - Cadastro de cartões com: nome, banco, bandeira, limite total, dia de fechamento, dia de vencimento.
+   - Tela por cartão mostrando:
+     - fatura atual;
+     - lista de compras com: descrição, valor, data, categoria, número da parcela (ex.: 2/10);
+     - limite usado e limite disponível.
+
+5. Receitas:
+   - Cadastro de receitas com: valor, data, categoria (salário, freelance, extra, etc.), conta de destino, observações.
+   - Listagem de receitas por mês e por conta.
+
+6. Despesas fixas:
+   - Cadastro de despesas recorrentes (todo mês).
+   - Campos: nome, valor, dia de vencimento, tipo (boleto, débito, crédito), conta ou cartão padrão para pagamento, categoria.
+   - O sistema deve gerar automaticamente essas despesas todo mês e permitir marcar como "paga".
+
+7. Despesas variáveis:
+   - Cadastro de gastos do dia a dia.
+   - Campos: valor, data, categoria, forma de pagamento (dinheiro, débito, crédito, pix), conta/cartão utilizado, observação.
+   - Possibilidade de anexar foto do comprovante ou nota fiscal (campo de upload de imagem).
+
+8. Projeção de saldo e fluxo de caixa:
+   - Com base nas receitas previstas, contas fixas cadastradas, gastos já lançados e faturas de cartão, calcular:
+     - saldo previsto para o final do mês;
+     - quanto ainda está disponível para gastar.
+   - Atualizar esses valores automaticamente sempre que uma nova receita ou despesa for lançada.
+   - Exibir gráfico ou barra visual mostrando:
+     - valor previsto x valor real;
+     - quanto do orçamento já foi consumido no mês.
+
+9. Metas financeiras:
+   - Permitir criar metas com: nome, valor total, data-alvo e conta vinculada.
+   - Exibir progresso (valor atual x valor da meta).
+   - Sugerir quanto o usuário deveria guardar por mês para cumprir a meta.
+
+10. Relatórios e dashboards:
+    - Tela "Resumo do mês" com:
+      - total recebido;
+      - total gasto;
+      - total em cartões;
+      - total em despesas fixas;
+      - saldo final (real e previsto).
+    - Gráficos:
+      - pizza por categoria de despesa;
+      - linha ou barra com evolução do saldo;
+      - ranking das categorias que mais consomem dinheiro.
+    - Filtros por período (mês, trimestre, ano) e por conta/cartão.
+
+11. Alertas e notificações:
+    - Alertas de contas fixas próximas do vencimento.
+    - Alertas de fatura de cartão próxima da data de vencimento.
+    - Aviso quando os gastos em uma categoria ultrapassarem um limite configurado.
+    - Aviso quando a fatura do cartão ultrapassar uma porcentagem da renda mensal.
+
+Design (UI/UX):
+- Visual moderno, tecnológico e minimalista.
+- Cores base: azul escuro ou roxo escuro no fundo, com destaques em cores neon (azul, verde, roxo).
+- Botões arredondados, cartões com cantos arredondados e sombras suaves.
+- Ícones claros para cada categoria de despesa (casa, mercado, transporte, lazer, saúde, etc).
+- Suporte a modo claro e modo escuro.
+- Interface totalmente responsiva e agradável em smartphones.
+
+Banco de dados:
+- Criar modelo de dados para:
+  - users
+  - accounts
+  - credit_cards
+  - incomes
+  - fixed_expenses
+  - variable_expenses
+  - goals
+  - receipts (imagens vinculadas a despesas)
+- Cada registro deve estar vinculado ao usuário logado, com segurança adequada.
+
+Outros:
+- O app deve estar pronto para ser utilizado em ambiente de desenvolvimento, com rotas organizadas, componentes reutilizáveis e comentários explicando as principais partes do código.
+- Toda a interface e textos devem estar em português do Brasil.
