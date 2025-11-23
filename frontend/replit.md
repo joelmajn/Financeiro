@@ -1,5 +1,7 @@
 # NeoWallet - Personal Finance Management App
 
+> Este documento agora mora em `frontend/`. O projeto não possui backend neste repositório; toda a lógica está contida no app Expo.
+
 ## Overview
 
 NeoWallet is a comprehensive personal finance management mobile application built with React Native and Expo. The app helps users track their income, expenses, bank accounts, credit cards, and financial goals - all in Brazilian Portuguese (pt-BR).

@@ -6,6 +6,10 @@ const { pipeline } = require("stream/promises");
 
 let metroProcess = null;
 
+const projectRoot = path.resolve(__dirname, "..");
+process.chdir(projectRoot);
+console.log("Using project root:", projectRoot);
+
 function exitWithError(message) {
   console.error(message);
   if (metroProcess) {
